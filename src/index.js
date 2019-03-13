@@ -1,50 +1,54 @@
 module.exports = function solveSudoku(matrix) {
 
   function searchRow(rowNum) {
-    let emptyCells = [];
-    for(let i = 0; i < matrix[rowNum]; i++) {
-      matrix[rowNum][i] > 0 ? emptyCells.push(matrix[rowNum][i]) : null;
+    let existingNum = [];
+    let possibleNum = [];
+    for(let i = 0; i < rowNum.length; i++) {
+      rowNum[i] > 0 ? existingNum.push(rowNum[i]) : null;
       }
+    for(let k = 1; k <= 9; k++) {
+      existingNum.indexOf(k) === -1 ? possibleNum.push(k) : null;
     }
-    return emptyCells;
+    return possibleNum;
   };
 
   function searchColumn(columnNum) {
-    let emptyCells = [];
-    matrix.forEach(item => item[columnNum] > 0 ? emptyCells.push(item[columnNum]) : null);
-    return emptyCells;
+    let existingNum = [];
+    matrix.forEach(item => item[columnNum] > 0 ? existingNum.push(item[columnNum]) : null);
+    return existingNum;
   };
 
   function searchSquad(rowNum, columnNum) {
     let squad = [];
-    if(0 <= rowNum <= 2) {
-      if(0 <= columnNum <= 2) {
-        matrix[rowNum][columnNum] >
-      } else if(3 <= columnNum <= 5) {
-          squad = 2;
-      } else {
-          squad = 3;
-      }
-    } else if(3 <= rowNum <= 5) {
-        if(0 <= columnNum <= 2) {
-          squad = 4;
-        } else if(3 <= columnNum <= 5) {
-          squad = 5;
-        } else {
-          squad = 6;
+    if(Math.ceil((columnNum + 1) / 3) <= 1 && Math.ceil((rowNum + 1) / 3) <= 1) {
+      for(let i = 0; i < 3; i++) {
+        for(let k = 0; k < 3; k++) {
+          squad.push(matrix[i][k]);
         }
-    } else {
-      if(0 <= columnNum <= 2) {
-        squad = 7;
-      } else if(3 <= columnNum <= 5) {
-        squad = 8;
-      } else {
-        squad = 9;
       }
-    } 
-  }
+    }
+    if(Math.ceil((columnNum + 1) / 3) <= 2 && Math.ceil((rowNum + 1) / 3) <= 2) {
+      for(let i = 3; i < 6; i++) {
+        for(let k = 3; k < 6; k++) {
+          squad.push(matrix[i][k]);
+        }
+      }
+    }
+    if(Math.ceil((columnNum + 1) / 3) === 3 && Math.ceil((rowNum + 1) / 3) === 3) {
+      for(let i = 6; i < 9; i++) {
+        for(let k = 6; k < 9; k++) {
+          squad.push(matrix[i][k]);
+        }
+      }
+    }
+    return squad;
+  };
 
-  for(let vert = 0; i < matrix.length; vert++) {
-    for(let horz = 0; i < matrix.length; horz++)
+  for(let vert = 0; vert < matrix.length; vert++) {
+    for(let horz = 0; horz < matrix.length; horz++) {
+      if(matrix[vert][horz] === 0) {
+
+      }
+    }
   }
 }
